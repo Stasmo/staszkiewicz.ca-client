@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8 as builder
 
 WORKDIR /home/node
 USER node
@@ -9,4 +9,4 @@ RUN npm run build
 
 FROM nginx
 
-COPY --chown=node dist /usr/share/nginx/html
+COPY --from=builder /home/node/dist /usr/share/nginx/html
